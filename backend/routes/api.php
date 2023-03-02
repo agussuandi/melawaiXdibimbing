@@ -4,8 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\UsersController;
+use App\Http\Controllers\Api\MaterialsController;
 use App\Http\Controllers\Api\CustomersController;
-use App\Http\Controllers\Api\CustomerReceiptsController;
+// use App\Http\Controllers\Api\SalesOrderController;
+use App\Http\Controllers\Api\CustomerReceiptsControllerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,8 @@ use App\Http\Controllers\Api\CustomerReceiptsController;
 
 Route::prefix('/v1')->group(function () {
     Route::resource('users', UsersController::class)->except('create', 'edit');
+    Route::resource('materials', MaterialsController::class)->except('create', 'edit');
     Route::resource('customers', CustomersController::class)->except('create', 'edit');
     Route::resource('customer-receipts', CustomerReceiptsController::class)->except('create', 'edit');
-    // Route::resource('sales-order', CustomerReceiptsController::class)->except('create', 'edit');
+    // Route::resource('sales-order', SalesOrderController::class)->except('create', 'edit');
 });

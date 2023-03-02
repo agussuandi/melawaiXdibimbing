@@ -2,8 +2,11 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -46,13 +49,16 @@ class Handler extends ExceptionHandler
             //
         });
 
-        // $this->renderable(function (ModelNotFoundException $e, Request $request) {
-        //     if ($request->is('api/*')) {
-        //         return response()->json([
-        //             'status'  => false,
-        //             'message' => 'Resource not found.'
-        //         ], 404);
-        //     }
-        // });
+        $this->renderable(function (NotFoundHttpException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json(['status'  => false,'message' => 'Resource not found.'], 404);
+            }
+        });
+
+        $this->renderable(function (BindingResolutionException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json(['status' => false, 'message' => 'Target class binding does not exist.'], 500);
+            }
+        });
     }
 }
