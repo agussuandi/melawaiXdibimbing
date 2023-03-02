@@ -26,4 +26,5 @@ Route::prefix('/v1')->group(function () {
     Route::resource('users', UsersController::class)->except('create', 'edit');
     Route::resource('customers', CustomersController::class)->except('create', 'edit');
     Route::resource('customer-receipts', CustomerReceiptsController::class)->except('create', 'edit');
+    // Route::resource('sales-order', CustomerReceiptsController::class)->except('create', 'edit');
 });

@@ -14,4 +14,6 @@ class MCustomers extends Model
     public $timestamps = false;
     
     protected $guarded = ['id'];
+    
+    public $modelNotFoundMessage = "The user was not found";
 }

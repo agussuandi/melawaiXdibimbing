@@ -23,6 +23,16 @@ class CustomersRequest extends FormRequest
     */
     public function rules(): array
     {
+        if ($this->route()->getName() === 'customers.update') {
+            return [
+                'customerName'        => 'required|max:150',
+                'customerBirthDate'   => 'required',
+                'customerAddress'     => 'required',
+                'customerCity'        => 'required|max:40',
+                'customerNoHandphone' => 'required|max:20',
+            ];
+        }
+
         return [
             'customerName'        => 'required|max:150',
             'customerBirthDate'   => 'required',

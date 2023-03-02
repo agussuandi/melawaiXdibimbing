@@ -3,9 +3,11 @@
 namespace App\Http\Services;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\MCustomerReceipts;
 use App\Helpers\UniqueCodeHelper;
+use App\Exceptions\CustomException;
 use App\Http\Resources\CustomerReceiptsResource;
 
 class CustomerReceiptsService
@@ -52,7 +54,7 @@ class CustomerReceiptsService
 
             return response()->json([
                 'status' => true,
-                'data'   => 'Customer Receipt added'
+                'data'   => 'Customer receipt added'
             ]);
         }
         catch (\Throwable $th)
@@ -74,6 +76,10 @@ class CustomerReceiptsService
                 'status' => true,
                 'data'   => new CustomerReceiptsResource($customerReceipt)
             ]);
+        }
+        catch (ModelNotFoundException $th)
+        {
+            throw new CustomException('Customer receipt not found');
         }
         catch (\Throwable $th)
         {
@@ -104,8 +110,12 @@ class CustomerReceiptsService
 
             return response()->json([
                 'status' => true,
-                'data'   => 'Customer Receipt updated'
+                'data'   => 'Customer receipt updated'
             ]);
+        }
+        catch (ModelNotFoundException $th)
+        {
+            throw new CustomException('Customer receipt not found');
         }
         catch (\Throwable $th)
         {
@@ -124,8 +134,12 @@ class CustomerReceiptsService
 
             return response()->json([
                 'status' => true,
-                'data'   => 'Customer Receipt deleted'
+                'data'   => 'Customer receipt deleted'
             ]);
+        }
+        catch (ModelNotFoundException $th)
+        {
+            throw new CustomException('Customer receipt not found');
         }
         catch (\Throwable $th)
         {

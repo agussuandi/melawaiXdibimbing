@@ -4,9 +4,11 @@ namespace App\Http\Services;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\User;
 use App\Helpers\UniqueCodeHelper;
+use App\Exceptions\CustomException;
 use App\Http\Resources\UsersResource;
 
 class UsersService
@@ -67,6 +69,10 @@ class UsersService
                 'data'   => new UsersResource($user)
             ]);
         }
+        catch (ModelNotFoundException $th)
+        {
+            throw new CustomException('User not found');
+        }
         catch (\Throwable $th)
         {
             return response()->json([
@@ -92,6 +98,10 @@ class UsersService
                 'data'   => 'User updated'
             ]);
         }
+        catch (ModelNotFoundException $th)
+        {
+            throw new CustomException('User not found');
+        }
         catch (\Throwable $th)
         {
             return response()->json([
@@ -111,6 +121,10 @@ class UsersService
                 'status' => true,
                 'data'   => 'User deleted'
             ]);
+        }
+        catch (ModelNotFoundException $th)
+        {
+            throw new CustomException('User not found');
         }
         catch (\Throwable $th)
         {

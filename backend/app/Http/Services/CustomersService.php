@@ -3,9 +3,11 @@
 namespace App\Http\Services;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use App\Models\MCustomers;
 use App\Helpers\UniqueCodeHelper;
+use App\Exceptions\CustomException;
 use App\Http\Resources\CustomersResource;
 
 class CustomersService
@@ -68,6 +70,10 @@ class CustomersService
                 'data'   => new CustomersResource($customer)
             ]);
         }
+        catch (ModelNotFoundException $th)
+        {
+            throw new CustomException('Customer not found');
+        }
         catch (\Throwable $th)
         {
             return response()->json([
@@ -96,6 +102,10 @@ class CustomersService
                 'data'   => 'Customer updated'
             ]);
         }
+        catch (ModelNotFoundException $th)
+        {
+            throw new CustomException('Customer not found');
+        }
         catch (\Throwable $th)
         {
             return response()->json([
@@ -115,6 +125,10 @@ class CustomersService
                 'status' => true,
                 'data'   => 'Customer deleted'
             ]);
+        }
+        catch (ModelNotFoundException $th)
+        {
+            throw new CustomException('Customer not found');
         }
         catch (\Throwable $th)
         {

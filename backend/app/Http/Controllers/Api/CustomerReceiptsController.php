@@ -55,6 +55,6 @@ class CustomerReceiptsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return $this->customerReceiptsService->destroy($id);
     }
 }
