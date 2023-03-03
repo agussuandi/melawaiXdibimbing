@@ -18,6 +18,6 @@ class MCustomerReceipt extends Model
 
     public function customer(): HasOne
     {
-        return $this->hasOne(MCustomers::class, 'id', 'customer_id');
+        return $this->hasOne(MCustomer::class, 'id', 'customer_id');
     }
 }

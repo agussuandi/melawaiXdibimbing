@@ -17,7 +17,7 @@ class TrxDSalesOrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'so_h_id'        => rand(1, 20),
+            'so_h_id'        => rand(1, 10),
             'material_id'    => rand(1, 100),
             'material_code'  => 'M00000'.rand(001, 100),
             'material_name'  => fake()->words(3, true),

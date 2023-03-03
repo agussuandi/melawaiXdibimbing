@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
         $this->call(MCustomerSeeder::class);
         $this->call(MCustomerReceiptSeeder::class);
         $this->call(MMaterialSeeder::class);
+        $this->call(TrxHSalesOrderSeeder::class);
+        $this->call(TrxDSalesOrderSeeder::class);
         
         // \App\Models\User::factory(10)->create();
 

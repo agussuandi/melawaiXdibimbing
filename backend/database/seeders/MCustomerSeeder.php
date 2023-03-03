@@ -14,7 +14,7 @@ class MCustomerSeeder extends Seeder
     {
         for ($i=0; $i < 10 ; $i++)
         { 
-            \App\Models\TrxHSalesOrder::factory(1)->create();
+            \App\Models\MCustomer::factory(1)->create();
         }
     }
 }
