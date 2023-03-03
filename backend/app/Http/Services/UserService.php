@@ -11,7 +11,7 @@ use App\Helpers\UniqueCodeHelper;
 use App\Exceptions\CustomException;
 use App\Http\Resources\UserResource;
 
-class UsersService
+class UserService
 {
     public function index($request)
     {
