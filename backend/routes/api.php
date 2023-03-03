@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\MaterialController;
 use App\Http\Controllers\Api\CustomerController;
@@ -24,10 +25,12 @@ use App\Http\Controllers\Api\CustomerReceiptController;
 //     return $request->user();
 // });
 
-Route::prefix('/v1')->group(function () {
+Route::post('auth/login', [AuthController::class, 'login']);
+
+Route::middleware('api.token')->prefix('/v1')->group(function () {
     Route::resource('users', UserController::class)->except('create', 'edit');
     Route::resource('materials', MaterialController::class)->except('create', 'edit');
     Route::resource('customers', CustomerController::class)->except('create', 'edit');
     Route::resource('customer-receipts', CustomerReceiptController::class)->except('create', 'edit');
     Route::resource('sales-order', SalesOrderController::class)->except('create', 'edit');
-});
+}); 
