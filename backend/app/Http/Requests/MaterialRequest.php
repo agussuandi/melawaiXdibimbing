@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class CustomerReceiptsRequest extends FormRequest
+class MaterialRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,8 @@ class CustomerReceiptsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customerReceiptName'          => 'required|max:150',
-            'customerId'                   => 'required',
-            'customerReceiptSpherisRight'  => 'required|max:10',
-            'customerReceiptSpherisLeft'   => 'required|max:10',
-            'customerReceiptCylinderRight' => 'required|max:10',
-            'customerReceiptCylinderLeft'  => 'required|max:10',
-            'customerReceiptAdditionRight' => 'required|max:10',
-            'customerReceiptAdditionLeft'  => 'required|max:10',
-            'customerReceiptAxisRight'     => 'required|max:10',
-            'customerReceiptAxisLeft'      => 'required|max:10',
+            'materialName'  => 'required|max:200',
+            'materialPrice' => 'required',
         ];
     }
 

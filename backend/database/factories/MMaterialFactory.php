@@ -9,7 +9,7 @@ use App\Helpers\UniqueCodeHelper;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class MMaterialsFactory extends Factory
+class MMaterialFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,10 +19,10 @@ class MMaterialsFactory extends Factory
     public function definition(): array
     {
         return [
-            'code'         => UniqueCodeHelper::generateMaterialCode(),
-            'name'         => fake()->words(3, true),
-            'price'        => fake()->randomNumber(7, true),
-            'created_at'   => now()
+            'code'       => UniqueCodeHelper::generateMaterialCode(),
+            'name'       => fake()->words(3, true),
+            'price'      => fake()->randomNumber(7, true),
+            'created_at' => now()
         ];
     }
 }

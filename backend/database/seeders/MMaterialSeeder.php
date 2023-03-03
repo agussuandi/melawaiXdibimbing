@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class MMaterialsSeeder extends Seeder
+class MMaterialSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +14,7 @@ class MMaterialsSeeder extends Seeder
     {
         for ($i=0; $i < 100 ; $i++)
         { 
-            \App\Models\MMaterials::factory(1)->create();
+            \App\Models\MMaterial::factory(1)->create();
         }
     }
 }

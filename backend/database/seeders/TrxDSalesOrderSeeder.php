@@ -5,16 +5,16 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class MCustomerReceiptsSeeder extends Seeder
+class TrxDSalesOrderSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        for ($i=0; $i < 10 ; $i++)
-        { 
-            \App\Models\MCustomerReceipts::factory(1)->create();
+        for ($i=0; $i < 100 ; $i++)
+        {
+            \App\Models\TrxDSalesOrder::factory(1)->create();
         }
     }
 }

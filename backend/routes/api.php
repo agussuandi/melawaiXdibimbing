@@ -3,11 +3,11 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Api\UsersController;
-use App\Http\Controllers\Api\MaterialsController;
-use App\Http\Controllers\Api\CustomersController;
-// use App\Http\Controllers\Api\SalesOrderController;
-use App\Http\Controllers\Api\CustomerReceiptsControllerController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\MaterialController;
+use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\SalesOrderController;
+use App\Http\Controllers\Api\CustomerReceiptController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +25,9 @@ use App\Http\Controllers\Api\CustomerReceiptsControllerController;
 // });
 
 Route::prefix('/v1')->group(function () {
-    Route::resource('users', UsersController::class)->except('create', 'edit');
-    Route::resource('materials', MaterialsController::class)->except('create', 'edit');
-    Route::resource('customers', CustomersController::class)->except('create', 'edit');
-    Route::resource('customer-receipts', CustomerReceiptsController::class)->except('create', 'edit');
-    // Route::resource('sales-order', SalesOrderController::class)->except('create', 'edit');
+    Route::resource('users', UserController::class)->except('create', 'edit');
+    Route::resource('materials', MaterialController::class)->except('create', 'edit');
+    Route::resource('customers', CustomerController::class)->except('create', 'edit');
+    Route::resource('customer-receipts', CustomerReceiptController::class)->except('create', 'edit');
+    Route::resource('sales-order', SalesOrderController::class)->except('create', 'edit');
 });

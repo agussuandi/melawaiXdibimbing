@@ -6,16 +6,16 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests\MaterialsRequest;
-use App\Http\Services\MaterialsService;
+use App\Http\Requests\MaterialRequest;
+use App\Http\Services\MaterialService;
 
-class MaterialsController extends Controller
+class MaterialController extends Controller
 {
     public function __construct(
-        private MaterialsService $materialsService
+        private MaterialService $materialService
     )
     {
-        $this->materialsService = $materialsService;
+        $this->materialService = $materialService;
     }
 
     /**
@@ -23,15 +23,15 @@ class MaterialsController extends Controller
      */
     public function index(Request $request)
     {
-        return $this->materialsService->index($request);
+        return $this->materialService->index($request);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(MaterialsRequest $request)
+    public function store(MaterialRequest $request)
     {
-        return $this->materialsService->store($request);
+        return $this->materialService->store($request);
     }
 
     /**
@@ -39,15 +39,15 @@ class MaterialsController extends Controller
      */
     public function show(string $id)
     {
-        return $this->materialsService->show($id);
+        return $this->materialService->show($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(MaterialsRequest $request, string $id)
+    public function update(MaterialRequest $request, string $id)
     {
-        return $this->materialsService->update($request, $id);
+        return $this->materialService->update($request, $id);
     }
 
     /**
@@ -55,6 +55,6 @@ class MaterialsController extends Controller
      */
     public function destroy(string $id)
     {
-        return $this->materialsService->destroy($id);
+        return $this->materialService->destroy($id);
     }
 }

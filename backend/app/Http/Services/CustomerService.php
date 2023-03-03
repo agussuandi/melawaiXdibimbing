@@ -2,24 +2,24 @@
 
 namespace App\Http\Services;
 
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-use App\Models\User;
+use App\Models\MCustomer;
 use App\Helpers\UniqueCodeHelper;
 use App\Exceptions\CustomException;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\CustomerResource;
 
-class UsersService
+class CustomerService
 {
     public function index($request)
     {
         try
         {
-            $users = User::paginate($request->get('limit', 10))->withQueryString();
+            // $customers = MCustomer::paginate($request->get('limit', 10))->withQueryString();
+            $customers = MCustomer::all();
 
-            return UserResource::collection($users);
+            return CustomerResource::collection($customers);
         }
         catch (\Throwable $th)
         {
@@ -34,19 +34,20 @@ class UsersService
     {
         try
         {
-            User::insert([
-                'name'              => $request->input('userName'),
-                'username'          => Str::of($request->input('userName'))->snake(),
-                'email'             => $request->input('userEmail'),
-                'email_verified_at' => now(),
-                'password'          => bcrypt($request->input('userPassword')),
-                'remember_token'    => Str::random(10),
-                'created_at'        => now()
+            $customer = MCustomer::insert([
+                'code'         => UniqueCodeHelper::generateCustomerCode(),
+                'name'         => $request->input('customerName'),
+                'birth_date'   => $request->input('customerBirthDate'),
+                'address'      => $request->input('customerAddress'),
+                'city'         => $request->input('customerCity'),
+                'no_handphone' => $request->input('customerNoHandphone'),
+                'email'        => $request->input('customerEmail'),
+                'created_at'   => now()
             ]);
 
             return response()->json([
-                'status' => true,
-                'data'   => 'User added'
+                'status'  => true,
+                'message' => 'Customer added'
             ]);
         }
         catch (\Throwable $th)
@@ -62,16 +63,16 @@ class UsersService
     {
         try
         {
-            $user = User::findOrFail($id);
+            $customer = MCustomer::findOrFail($id);
 
             return response()->json([
                 'status' => true,
-                'data'   => new UserResource($user)
+                'data'   => new CustomerResource($customer)
             ]);
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('User not found');
+            throw new CustomException('Customer not found');
         }
         catch (\Throwable $th)
         {
@@ -86,21 +87,24 @@ class UsersService
     {
         try
         {
-            User::findOrFail($id)->update([
-                'name'       => $request->input('userName'),
-                'email'      => $request->input('userEmail'),
-                'password'   => bcrypt($request->input('userPassword')),
-                'updated_at' => now()
+            MCustomer::findOrFail($id)->update([
+                'name'         => $request->input('customerName'),
+                'birth_date'   => $request->input('customerBirthDate'),
+                'address'      => $request->input('customerAddress'),
+                'city'         => $request->input('customerCity'),
+                'no_handphone' => $request->input('customerNoHandphone'),
+                'email'        => $request->input('customerEmail'),
+                'updated_at'   => now()
             ]);
 
             return response()->json([
                 'status' => true,
-                'data'   => 'User updated'
+                'data'   => 'Customer updated'
             ]);
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('User not found');
+            throw new CustomException('Customer not found');
         }
         catch (\Throwable $th)
         {
@@ -115,16 +119,16 @@ class UsersService
     {
         try
         {
-            User::findOrFail($id)->delete();
+            MCustomer::findOrFail($id)->delete();
 
             return response()->json([
                 'status' => true,
-                'data'   => 'User deleted'
+                'data'   => 'Customer deleted'
             ]);
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('User not found');
+            throw new CustomException('Customer not found');
         }
         catch (\Throwable $th)
         {

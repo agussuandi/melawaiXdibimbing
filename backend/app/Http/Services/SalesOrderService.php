@@ -6,22 +6,21 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-use App\Models\MMaterials;
+use App\Models\TrxHSalesOrder;
+use App\Models\TrxDSalesOrder;
 use App\Helpers\UniqueCodeHelper;
 use App\Exceptions\CustomException;
-use App\Http\Resources\MaterialsResource;
+use App\Http\Resources\SalesOrderResource;
 
-class MaterialsService
+class SalesOrderService
 {
     public function index($request)
     {
         try
         {
-            // $users = MMaterials::paginate($request->get('limit', 10))->withQueryString();
+            $salesOrders = TrxHSalesOrder::paginate($request->get('limit', 10))->withQueryString();
 
-            $materials = MMaterials::all();
-
-            return MaterialsResource::collection($materials);
+            return SalesOrderResource::collection($salesOrders);
         }
         catch (\Throwable $th)
         {
@@ -36,16 +35,19 @@ class MaterialsService
     {
         try
         {
-            MMaterials::insert([
-                'code'       => UniqueCodeHelper::generateMaterialCode(),
-                'name'       => $request->input('materialName'),
-                'price'      => $request->input('materialPrice'),
-                'created_at' => now()
+            User::insert([
+                'name'              => $request->input('userName'),
+                'username'          => Str::of($request->input('userName'))->snake(),
+                'email'             => $request->input('userEmail'),
+                'email_verified_at' => now(),
+                'password'          => bcrypt($request->input('userPassword')),
+                'remember_token'    => Str::random(10),
+                'created_at'        => now()
             ]);
 
             return response()->json([
                 'status' => true,
-                'data'   => 'Material added'
+                'data'   => 'User added'
             ]);
         }
         catch (\Throwable $th)
@@ -61,16 +63,16 @@ class MaterialsService
     {
         try
         {
-            $material = MMaterials::findOrFail($id);
+            $user = User::findOrFail($id);
 
             return response()->json([
                 'status' => true,
-                'data'   => new MaterialsResource($material)
+                'data'   => new UsersResource($user)
             ]);
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('Material not found');
+            throw new CustomException('User not found');
         }
         catch (\Throwable $th)
         {
@@ -85,20 +87,21 @@ class MaterialsService
     {
         try
         {
-            MMaterials::findOrFail($id)->update([
-                'name'       => $request->input('materialName'),
-                'price'      => $request->input('materialPrice'),
+            User::findOrFail($id)->update([
+                'name'       => $request->input('userName'),
+                'email'      => $request->input('userEmail'),
+                'password'   => bcrypt($request->input('userPassword')),
                 'updated_at' => now()
             ]);
 
             return response()->json([
                 'status' => true,
-                'data'   => 'Material updated'
+                'data'   => 'User updated'
             ]);
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('Material not found');
+            throw new CustomException('User not found');
         }
         catch (\Throwable $th)
         {
@@ -113,16 +116,16 @@ class MaterialsService
     {
         try
         {
-            MMaterials::findOrFail($id)->delete();
+            User::findOrFail($id)->delete();
 
             return response()->json([
                 'status' => true,
-                'data'   => 'Material deleted'
+                'data'   => 'User deleted'
             ]);
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('Material not found');
+            throw new CustomException('User not found');
         }
         catch (\Throwable $th)
         {

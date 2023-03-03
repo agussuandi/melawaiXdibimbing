@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Schema::create('trx_h_sales_order', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('invoice', 16)->unique();
-        //     $table->integer('customer_id');
-        //     $table->date('date');
-        //     $table->dateTime('craeted_at');
-        //     $table->dateTime('updated_at');
-        //     $table->index(['id', 'invoice', 'customer_id', 'date']);
-        //     $table->foreign('customer_id')->references('id')->on('m_customers');
-        // });
+        Schema::create('trx_h_sales_order', function (Blueprint $table) {
+            $table->id();
+            $table->string('invoice', 16)->unique();
+            $table->integer('customer_id');
+            $table->date('date');
+            $table->timestamps();
+            $table->index(['id', 'invoice', 'customer_id', 'date']);
+            $table->foreign('customer_id')->references('id')->on('m_customers');
+        });
     }
 
     /**
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Schema::dropIfExists('trx_h_sales_order');
+        Schema::dropIfExists('trx_h_sales_order');
     }
 };

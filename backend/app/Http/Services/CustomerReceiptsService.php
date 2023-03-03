@@ -5,24 +5,24 @@ namespace App\Http\Services;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-use App\Models\MCustomerReceipts;
+use App\Models\MCustomerReceipt;
 use App\Helpers\UniqueCodeHelper;
 use App\Exceptions\CustomException;
-use App\Http\Resources\CustomerReceiptsResource;
+use App\Http\Resources\CustomerReceiptResource;
 
-class CustomerReceiptsService
+class CustomerReceiptService
 {
     public function index($request)
     {
         try
         {
-            // $customerReceipts = MCustomerReceipts::with('customer')
+            // $customerReceipts = MCustomerReceipt::with('customer')
             //     ->paginate($request->get('limit', 10))
             // ->withQueryString();
 
-            $customerReceipts = MCustomerReceipts::with('customer')->get();
+            $customerReceipts = MCustomerReceipt::with('customer')->get();
 
-            return CustomerReceiptsResource::collection($customerReceipts);
+            return CustomerReceiptResource::collection($customerReceipts);
         }
         catch (\Throwable $th)
         {
@@ -37,7 +37,7 @@ class CustomerReceiptsService
     {
         try
         {
-            MCustomerReceipts::insert([
+            MCustomerReceipt::insert([
                 'code'           => UniqueCodeHelper::generateReceiptCode(),
                 'name'           => $request->input('customerReceiptName'),
                 'customer_id'    => $request->input('customerId'),
@@ -70,11 +70,11 @@ class CustomerReceiptsService
     {
         try
         {
-            $customerReceipt = MCustomerReceipts::findOrFail($id);
+            $customerReceipt = MCustomerReceipt::findOrFail($id);
 
             return response()->json([
                 'status' => true,
-                'data'   => new CustomerReceiptsResource($customerReceipt)
+                'data'   => new CustomerReceiptResource($customerReceipt)
             ]);
         }
         catch (ModelNotFoundException $th)
@@ -94,7 +94,7 @@ class CustomerReceiptsService
     {
         try
         {
-            MCustomerReceipts::findOrFail($id)->update([
+            MCustomerReceipt::findOrFail($id)->update([
                 'name'           => $request->input('customerReceiptName'),
                 'customer_id'    => $request->input('customerId'),
                 'spheris_right'  => $request->input('customerReceiptSpherisRight'),
@@ -130,7 +130,7 @@ class CustomerReceiptsService
     {
         try
         {
-            MCustomerReceipts::findOrFail($id)->delete();
+            MCustomerReceipt::findOrFail($id)->delete();
 
             return response()->json([
                 'status' => true,

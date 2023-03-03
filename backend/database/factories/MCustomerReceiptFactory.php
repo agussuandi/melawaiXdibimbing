@@ -10,7 +10,7 @@ use App\Helpers\UniqueCodeHelper;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class MCustomerReceiptsFactory extends Factory
+class MCustomerReceiptFactory extends Factory
 {
     /**
      * Define the model's default state.

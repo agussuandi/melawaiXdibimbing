@@ -2,24 +2,26 @@
 
 namespace App\Http\Services;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-use App\Models\MCustomers;
+use App\Models\MMaterial;
 use App\Helpers\UniqueCodeHelper;
 use App\Exceptions\CustomException;
-use App\Http\Resources\CustomersResource;
+use App\Http\Resources\MaterialResource;
 
-class CustomersService
+class MaterialService
 {
     public function index($request)
     {
         try
         {
-            // $customers = MCustomers::paginate($request->get('limit', 10))->withQueryString();
-            $customers = MCustomers::all();
+            // $users = MMaterial::paginate($request->get('limit', 10))->withQueryString();
 
-            return CustomersResource::collection($customers);
+            $materials = MMaterial::all();
+
+            return MaterialResource::collection($materials);
         }
         catch (\Throwable $th)
         {
@@ -34,20 +36,16 @@ class CustomersService
     {
         try
         {
-            $customer = MCustomers::insert([
-                'code'         => UniqueCodeHelper::generateCustomerCode(),
-                'name'         => $request->input('customerName'),
-                'birth_date'   => $request->input('customerBirthDate'),
-                'address'      => $request->input('customerAddress'),
-                'city'         => $request->input('customerCity'),
-                'no_handphone' => $request->input('customerNoHandphone'),
-                'email'        => $request->input('customerEmail'),
-                'created_at'   => now()
+            MMaterial::insert([
+                'code'       => UniqueCodeHelper::generateMaterialCode(),
+                'name'       => $request->input('materialName'),
+                'price'      => $request->input('materialPrice'),
+                'created_at' => now()
             ]);
 
             return response()->json([
-                'status'  => true,
-                'message' => 'Customer added'
+                'status' => true,
+                'data'   => 'Material added'
             ]);
         }
         catch (\Throwable $th)
@@ -63,16 +61,16 @@ class CustomersService
     {
         try
         {
-            $customer = MCustomers::findOrFail($id);
+            $material = MMaterial::findOrFail($id);
 
             return response()->json([
                 'status' => true,
-                'data'   => new CustomersResource($customer)
+                'data'   => new MaterialResource($material)
             ]);
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('Customer not found');
+            throw new CustomException('Material not found');
         }
         catch (\Throwable $th)
         {
@@ -87,24 +85,20 @@ class CustomersService
     {
         try
         {
-            MCustomers::findOrFail($id)->update([
-                'name'         => $request->input('customerName'),
-                'birth_date'   => $request->input('customerBirthDate'),
-                'address'      => $request->input('customerAddress'),
-                'city'         => $request->input('customerCity'),
-                'no_handphone' => $request->input('customerNoHandphone'),
-                'email'        => $request->input('customerEmail'),
-                'updated_at'   => now()
+            MMaterial::findOrFail($id)->update([
+                'name'       => $request->input('materialName'),
+                'price'      => $request->input('materialPrice'),
+                'updated_at' => now()
             ]);
 
             return response()->json([
                 'status' => true,
-                'data'   => 'Customer updated'
+                'data'   => 'Material updated'
             ]);
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('Customer not found');
+            throw new CustomException('Material not found');
         }
         catch (\Throwable $th)
         {
@@ -119,16 +113,16 @@ class CustomersService
     {
         try
         {
-            MCustomers::findOrFail($id)->delete();
+            MMaterial::findOrFail($id)->delete();
 
             return response()->json([
                 'status' => true,
-                'data'   => 'Customer deleted'
+                'data'   => 'Material deleted'
             ]);
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('Customer not found');
+            throw new CustomException('Material not found');
         }
         catch (\Throwable $th)
         {

@@ -6,16 +6,16 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests\CustomersRequest;
-use App\Http\Services\CustomersService;
+use App\Http\Requests\CustomerRequest;
+use App\Http\Services\CustomerService;
 
-class CustomersController extends Controller
+class CustomerController extends Controller
 {
     public function __construct(
-        private CustomersService $customersService
+        private CustomerService $customerService
     )
     {
-        $this->customersService = $customersService;
+        $this->customerService = $customerService;
     }
 
     /**
@@ -23,15 +23,15 @@ class CustomersController extends Controller
     */
     public function index(Request $request)
     {
-        return $this->customersService->index($request);
+        return $this->customerService->index($request);
     }
 
     /**
      * Store a newly created resource in storage.
     */
-    public function store(CustomersRequest $request)
+    public function store(CustomerRequest $request)
     {
-        return $this->customersService->store($request);
+        return $this->customerService->store($request);
     }
 
     /**
@@ -39,15 +39,15 @@ class CustomersController extends Controller
     */
     public function show(string $id)
     {
-        return $this->customersService->show($id);
+        return $this->customerService->show($id);
     }
 
     /**
      * Update the specified resource in storage.
     */
-    public function update(CustomersRequest $request, string $id)
+    public function update(CustomerRequest $request, string $id)
     {
-        return $this->customersService->update($request, $id);
+        return $this->customerService->update($request, $id);
     }
 
     /**
@@ -55,6 +55,6 @@ class CustomersController extends Controller
     */
     public function destroy(string $id)
     {
-        return $this->customersService->destroy($id);
+        return $this->customerService->destroy($id);
     }
 }

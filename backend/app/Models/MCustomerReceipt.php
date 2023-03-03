@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class MCustomerReceipts extends Model
+class MCustomerReceipt extends Model
 {
     use HasFactory;
 
