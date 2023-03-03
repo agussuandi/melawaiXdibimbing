@@ -5,7 +5,7 @@ export default createRouter({
     routes: [
         {
             path: '/',
-            component: () => import("../views/Customers/Index.vue"),
+            component: () => import("../views/Auth/Login.vue"),
         },
         {
             path: '/customers',
