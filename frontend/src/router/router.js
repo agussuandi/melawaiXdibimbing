@@ -23,5 +23,13 @@ export default createRouter({
             path: '/customer-receipts',
             component: () => import("../views/CustomerReceipts/Index.vue"),
         },
+        {
+            path: '/materials',
+            component: () => import("../views/Materials/Index.vue"),
+        },
+        {
+            path: '/sales-order',
+            component: () => import("../views/SalesOrder/Index.vue"),
+        },
     ],
 })

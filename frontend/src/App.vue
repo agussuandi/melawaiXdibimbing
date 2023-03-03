@@ -56,6 +56,16 @@
                         icon: "mdi-receipt-text-check",
                         title: "Customer Receipts",
                     },
+                    {
+                        to: "/materials",
+                        icon: "mdi-glasses",
+                        title: "Materials",
+                    },
+                    {
+                        to: "/sales-order",
+                        icon: "mdi-cart-variant",
+                        title: "Sales Order",
+                    },
                 ],
             }
         }
