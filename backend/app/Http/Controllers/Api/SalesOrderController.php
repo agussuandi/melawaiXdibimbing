@@ -39,7 +39,7 @@ class SalesOrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return $this->salesOrderService->show($id);
     }
 
     /**

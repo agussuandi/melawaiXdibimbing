@@ -63,16 +63,16 @@ class SalesOrderService
     {
         try
         {
-            $user = User::findOrFail($id);
+            $salesOrder = TrxHSalesOrder::findOrFail($id);
 
             return response()->json([
                 'status' => true,
-                'data'   => new UsersResource($user)
+                'data'   => new SalesOrderResource($salesOrder)
             ]);
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('User not found');
+            throw new CustomException('Sales order not found');
         }
         catch (\Throwable $th)
         {
