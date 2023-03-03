@@ -15,9 +15,9 @@
             >
                 <v-list>
                     <v-list-item
-                        prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-                        title="Sandra Adams"
-                        subtitle="sandra_a88@gmailcom"
+                        prepend-avatar="https://ui-avatars.com/api/?length=2&name=Agus%20Suandi"
+                        :title="developer.name"
+                        :subtitle="developer.email"
                     ></v-list-item>
                 </v-list>
                 <v-divider></v-divider>
@@ -67,6 +67,10 @@
                         title: "Sales Order",
                     },
                 ],
+                developer: {
+                    name: import.meta.env.VITE_APP_DEVELOPER,
+                    email: import.meta.env.VITE_APP_DEVELOPER_EMAIL
+                }
             }
         }
     }

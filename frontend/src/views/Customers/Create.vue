@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="submit">
         <v-text-field
-            :v-model="customerName.value.value"
+            v-model="customerName.value.value"
             :error-messages="customerName.errorMessage.value"
             label="Name"
         />
