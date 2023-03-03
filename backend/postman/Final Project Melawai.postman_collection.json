@@ -20,6 +20,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -57,6 +62,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -92,6 +102,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -125,6 +140,11 @@
 							{
 								"key": "Accept",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
 								"type": "default"
 							}
 						],
@@ -160,6 +180,11 @@
 							{
 								"key": "Accept",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
 								"type": "default"
 							}
 						],
@@ -204,6 +229,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -241,6 +271,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -276,6 +311,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -309,6 +349,11 @@
 							{
 								"key": "Accept",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
 								"type": "default"
 							}
 						],
@@ -344,6 +389,11 @@
 							{
 								"key": "Accept",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
 								"type": "default"
 							}
 						],
@@ -388,6 +438,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -425,6 +480,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -460,6 +520,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -493,6 +558,11 @@
 							{
 								"key": "Accept",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
 								"type": "default"
 							}
 						],
@@ -528,6 +598,11 @@
 							{
 								"key": "Accept",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
 								"type": "default"
 							}
 						],
@@ -572,6 +647,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -609,6 +689,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -644,6 +729,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -677,6 +767,11 @@
 							{
 								"key": "Accept",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
 								"type": "default"
 							}
 						],
@@ -712,6 +807,11 @@
 							{
 								"key": "Accept",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
 								"type": "default"
 							}
 						],
@@ -759,9 +859,8 @@
 							},
 							{
 								"key": "Authorization",
-								"value": "Bearer ",
-								"type": "default",
-								"disabled": true
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -799,6 +898,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -834,6 +938,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -867,6 +976,11 @@
 							{
 								"key": "Accept",
 								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
 								"type": "default"
 							}
 						],
@@ -903,6 +1017,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
 							}
 						],
 						"body": {
@@ -924,6 +1043,123 @@
 								"v1",
 								"customers",
 								"13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"lcassin@example.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Me (user identity)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"lcassin@example.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/auth/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
 							]
 						}
 					},
@@ -956,6 +1192,11 @@
 		{
 			"key": "url",
 			"value": "localhost:8000",
+			"type": "default"
+		},
+		{
+			"key": "token",
+			"value": "eyJpdiI6IkQyU05STHp2djE5NERUd1duRFhQMFE9PSIsInZhbHVlIjoiZGFTdElIOXd1b3VwejEvbk9zZHBEYWUweEMreFBTVW9rMFJvVmVtRCswZUo5Nk9LL2VGdURWbS9DMTVRNHpWeU9qcGdOZ1VZZkhYdzF4cklTSVAwcDVZaStjQ3RpRjlVYW1kaUM4OGRUVFlTcVB2ZlpDUUsxVEpTNjZzWWVQajFFZnk3aTZ6ZkdMQVJTMXdONHFVRGhqbzBnSkxCVUc3Y0VkMzNnMnRQaEkzZURiYVBMR1pDcUh3SUw3Q2QvNUVtR1dySXlxSEFBUjFIRkpIeWNrZUJCdC8vdWljTkd0RC9GVFZWa3JzemdsMD0iLCJtYWMiOiIyOTkwYTNiYzgxYjQ2MDMyYmJlYjRiZDVkMGI2NGMzODNmMTZhZmFkZjJlZTBiYWJlZmQ1Nzk0MWQ5YTg4ZjQyIiwidGFnIjoiIn0=",
 			"type": "default"
 		}
 	]
