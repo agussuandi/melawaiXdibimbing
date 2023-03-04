@@ -1,93 +1,73 @@
 <template>
-    <v-sheet width="300" class="mx-auto">
-  
-      <v-form ref="form">
-        <v-text-field
-          v-model="name"
-          :counter="10"
-          :rules="nameRules"
-          label="Name"
-          required
-        ></v-text-field>
-  
-        <v-select
-          v-model="select"
-          :items="items"
-          :rules="[v => !!v || 'Item is required']"
-          label="Item"
-          required
-        ></v-select>
-  
-        <v-checkbox
-          v-model="checkbox"
-          :rules="[v => !!v || 'You must agree to continue!']"
-          label="Do you agree?"
-          required
-        ></v-checkbox>
-  
-        <div class="d-flex flex-column">
-          <v-btn
-            color="success"
-            class="mt-4"
-            block
-            @click="validate"
-          >
-            Validate
-          </v-btn>
-  
-          <v-btn
-            color="error"
-            class="mt-4"
-            block
-            @click="reset"
-          >
-            Reset Form
-          </v-btn>
-  
-          <v-btn
-            color="warning"
-            class="mt-4"
-            block
-            @click="resetValidation"
-          >
-            Reset Validation
-          </v-btn>
-        </div>
-      </v-form>
+    <v-sheet width="300" class="mx-auto" style="padding-top: 10%">
+        <v-form ref="form">
+            <v-text-field
+                v-model="email"
+                :counter="50"
+                :rules="emailRule"
+                label="Email"
+                required
+            />
+            <v-text-field
+                v-model="password"
+                :rules="passwordRule"
+                label="Password"
+                required
+            />
+            <div class="d-flex flex-column">
+                <v-btn
+                    color="success"
+                    class="mt-4"
+                    block
+                    @click="validate"
+                >
+                    Login
+                </v-btn>
+            </div>
+        </v-form>
     </v-sheet>
-  </template>
+</template>
 
 <script lang="js">
-export default {
-  data: () => ({
-    valid: true,
-    name: '',
-    nameRules: [
-      v => !!v || 'Name is required',
-      v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-    ],
-    select: null,
-    items: [
-      'Item 1',
-      'Item 2',
-      'Item 3',
-      'Item 4',
-    ],
-    checkbox: false,
-  }),
+    import { sendRequest } from '../../utils/request'
 
-  methods: {
-    async validate () {
-      const { valid } = await this.$refs.form.validate()
-
-      if (valid) alert('Form is valid')
-    },
-    reset () {
-      this.$refs.form.reset()
-    },
-    resetValidation () {
-      this.$refs.form.resetValidation()
-    },
-  },
-}
+    export default {
+        data: () => ({
+            valid: true,
+            email: '',
+            emailRule: [
+                v => !!v || 'Email is required',
+                v => (v && v.length <= 50) || 'Email must be less than 50 characters',
+            ],
+            password: '',
+            passwordRule: [
+                v => !!v || 'Password is required',
+            ],
+        }),
+        methods: {
+            async validate () {
+                const { valid } = await this.$refs.form.validate()
+                if (valid) {
+                    sendRequest('POST', `${import.meta.env.VITE_APP_BACKEND_HOST}/api/auth/login`, {
+                        email: this.email,
+                        password: this.password
+                    })
+                    .then(res => {
+                        if (!res.status) throw new Error(res.message)
+                        localStorage.setItem('token', res.token)
+                        window.location.href = "/customers"
+                    })
+                    .catch(err => {
+                        alert(err)
+                    })
+                }
+            },
+            reset () {
+                this.$refs.form.reset()
+            },
+            resetValidation () {
+                this.$refs.form.resetValidation()
+            },
+        },
+    }
 </script>

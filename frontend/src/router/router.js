@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-export default createRouter({
+const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
             path: '/',
-            component: () => import("../views/Auth/Login.vue"),
+            component: () => import("../views/Customers/Index.vue"),
         },
         {
             path: '/customers',
@@ -33,3 +33,12 @@ export default createRouter({
         },
     ],
 })
+
+router.beforeEach((to, from) => {
+    const token = localStorage.getItem('token')
+    if (!token) {
+        return '/customers'
+    }
+})
+
+export default router
