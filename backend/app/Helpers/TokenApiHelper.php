@@ -26,7 +26,7 @@ class TokenApiHelper
             return response()->json([
                 'status'  => false,
                 'message' => $e->getMessage()
-            ], 500);
+            ], 401);
         }
     }
  
@@ -38,17 +38,17 @@ class TokenApiHelper
                 ->where('email', $email)
             ->firstOrFail();
 
-            if (!(\Hash::check($password, $user->password))) throw new CustomException('Username or passoword invalid');
+            if (!(\Hash::check($password, $user->password))) throw new CustomException('Username or passoword invalid', 401);
 
             return $user;
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('User not found');
+            throw new CustomException('User not found', 401);
         }
         catch (CustomException $th)
         {
-            throw new CustomException($th->getMessage());
+            throw new CustomException($th->getMessage(), 401);
         }
     }
 
