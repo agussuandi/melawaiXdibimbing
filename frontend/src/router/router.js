@@ -37,7 +37,7 @@ const router = createRouter({
 router.beforeEach((to, from) => {
     const token = localStorage.getItem('token')
     if (!token) {
-        return '/customers'
+        if (!from.path !== '/') return "/"
     }
 })
 
