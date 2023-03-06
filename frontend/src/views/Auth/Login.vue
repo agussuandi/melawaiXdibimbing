@@ -1,32 +1,34 @@
 <template>
-    <v-sheet width="300" class="mx-auto" style="padding-top: 10%">
-        <h3 style="text-align: center; margin-bottom: 10px;">Login CRM Melawai</h3>
-        <v-form ref="form">
-            <v-text-field
-                v-model="email"
-                :counter="50"
-                :rules="emailRule"
-                label="Email"
-                required
-            />
-            <v-text-field
-                v-model="password"
-                :rules="passwordRule"
-                label="Password"
-                type="password"
-                required
-            />
-            <div class="d-flex flex-column">
-                <v-btn
-                    color="success"
-                    class="mt-4"
-                    block
-                    @click="validate"
-                >
-                    Login
-                </v-btn>
-            </div>
-        </v-form>
+    <v-sheet class="bg-red-darken-3 pa-12" rounded style="min-height: 100vh; max-height: 100%;">
+        <h2 style="text-align: center;">Login CRM Melawai</h2>
+        <v-card class="mx-auto px-6 py-8 my-8" max-width="344">
+            <v-form ref="form">
+                <v-text-field
+                    v-model="email"
+                    :counter="50"
+                    :rules="emailRule"
+                    label="Email"
+                    required
+                />
+                <v-text-field
+                    v-model="password"
+                    :rules="passwordRule"
+                    label="Password"
+                    type="password"
+                    required
+                />
+                <div class="d-flex flex-column">
+                    <v-btn
+                        color="success"
+                        class="mt-4"
+                        block
+                        @click="validate"
+                    >
+                        Login
+                    </v-btn>
+                </div>
+            </v-form>
+        </v-card>
     </v-sheet>
 </template>
 
