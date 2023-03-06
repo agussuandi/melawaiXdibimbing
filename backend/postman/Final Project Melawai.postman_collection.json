@@ -928,9 +928,14 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
 				{
-					"name": "customers",
+					"name": "Login",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -938,16 +943,11 @@
 								"key": "Accept",
 								"value": "application/json",
 								"type": "default"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "default"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"soDate\": \"\",\r\n    \"soCabang\": \"\",\r\n    \"memberId/customerId\": \"\",\r\n    \"items\" [\r\n        {\r\n            \"materialId\": 1,\r\n            \"materialQty\": \"\",\r\n            \"receiptId\": \"\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"email\": \"norma.stokes@example.net\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -955,63 +955,26 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/customers",
+							"raw": "{{url}}/api/auth/login",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"v1",
-								"customers"
+								"auth",
+								"login"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "customers/{id}",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "default"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"customerName\": \"Agus Suandi\",\r\n    \"customerBirthDate\": \"1996-07-24\",\r\n    \"customerAddress\": \"Kp Rawa Bambu Bulak\",\r\n    \"customerCity\": \"BEKASI\",\r\n    \"customerNoHandphone\": \"+6282114635510\",\r\n    \"customerEmail\": \"agus.suandi@melawai.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/v1/customers/11",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"customers",
-								"11"
-							]
-						}
+					"name": "Verify",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
 					},
-					"response": []
-				},
-				{
-					"name": "customers/{id}",
 					"request": {
-						"method": "DELETE",
+						"method": "GET",
 						"header": [
 							{
 								"key": "Accept",
@@ -1034,93 +997,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/customers/13",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"customers",
-								"13"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Auth",
-			"item": [
-				{
-					"name": "Login",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"lcassin@example.com\",\r\n    \"password\": \"password\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/auth/login",
+							"raw": "{{url}}/api/auth/verify",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"auth",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Me (user identity)",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"type": "default"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "default"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"lcassin@example.com\",\r\n    \"password\": \"password\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/auth/me",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"me"
+								"verify"
 							]
 						}
 					},
@@ -1196,7 +1080,7 @@
 		},
 		{
 			"key": "token",
-			"value": "eyJpdiI6IkQyU05STHp2djE5NERUd1duRFhQMFE9PSIsInZhbHVlIjoiZGFTdElIOXd1b3VwejEvbk9zZHBEYWUweEMreFBTVW9rMFJvVmVtRCswZUo5Nk9LL2VGdURWbS9DMTVRNHpWeU9qcGdOZ1VZZkhYdzF4cklTSVAwcDVZaStjQ3RpRjlVYW1kaUM4OGRUVFlTcVB2ZlpDUUsxVEpTNjZzWWVQajFFZnk3aTZ6ZkdMQVJTMXdONHFVRGhqbzBnSkxCVUc3Y0VkMzNnMnRQaEkzZURiYVBMR1pDcUh3SUw3Q2QvNUVtR1dySXlxSEFBUjFIRkpIeWNrZUJCdC8vdWljTkd0RC9GVFZWa3JzemdsMD0iLCJtYWMiOiIyOTkwYTNiYzgxYjQ2MDMyYmJlYjRiZDVkMGI2NGMzODNmMTZhZmFkZjJlZTBiYWJlZmQ1Nzk0MWQ5YTg4ZjQyIiwidGFnIjoiIn0=",
+			"value": "eyJpdiI6Imx6Y2xPOHI2d0FmbVJQVnlicEVTUkE9PSIsInZhbHVlIjoibUszVmhod0pvSzYxZnhSaWJWSDJCbTgvcmRZUDAxdDk0MVp6aUZhb3lVRWVreUt5cnladmpJcE9SdXVoNWZTSE1kREYvOVE2aXpUY1pRanYzYUZWTFpxR2NGZkM3bk91VEg0cmVrUURMZkFqNjA3ZkpmQ2EyaDVvRjR0b2Q1MEc2Vk1IN2pCbTlXTE1Jd3ZYdUljQXRIa1djbjB2U29UeHN6UnRvcExoNGgrZko2Z2ZhYUV1aEdSRUN1OUtVeWpPUVEra1NRUm5FUnNWWFF0RlZiVFZzZz09IiwibWFjIjoiOTJmZWNlOGU3MWMxZTQxMTk2MGI2MmVlZjZhMjkzNTlmNzZiZWE0NzhlOGNiODBmNWRhYzQ2OTJlNzk1ZWZlYiIsInRhZyI6IiJ9",
 			"type": "default"
 		}
 	]
