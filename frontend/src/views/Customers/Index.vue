@@ -30,6 +30,12 @@
                         size="small"
                         @click="$router.push(`/customers/${customer.customerId}/edit`)"
                     />
+                    <v-btn
+                        color="error"
+                        icon="mdi-delete"
+                        size="small"
+                        @click="handleDestroyCustomer(customer.customerId)"
+                    />
                 </td>
             </tr>
         </tbody>
@@ -57,6 +63,21 @@
                 .catch(err => {
                     console.log(err)
                 })
+            },
+            handleDestroyCustomer(id) {
+                if (confirm("Are you sure ?")) {
+                    sendRequest('DELETE', `${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customers/${id}`)
+                    .then(res => {
+                        if (!res.status) {
+                            if (!res.status) throw new Error(res.message)
+                        }
+                        this.handleCustomers()
+                        alert('Customer deleted')
+                    })
+                    .catch(err => {
+                        alert(err)
+                    })
+                }
             }
         }
     }
