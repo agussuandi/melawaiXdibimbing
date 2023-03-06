@@ -44,7 +44,7 @@ class TokenApiHelper
         }
         catch (ModelNotFoundException $th)
         {
-            throw new CustomException('User not found', 401);
+            throw new CustomException('User not found', 404);
         }
         catch (CustomException $th)
         {
@@ -124,5 +124,27 @@ class TokenApiHelper
     {
         header('Content-Type: application/json');
         die(json_encode($response));
+    }
+
+    public static function logout($token)
+    {
+        try
+        {
+            $updatedToken = AccessToken::where('token', $token)
+                ->firstOrFail()
+            ->update(['is_active' => 0]);
+
+            return response()->json([
+                'message' => 'Logout success'
+            ]);
+        }
+        catch (ModelNotFoundException $th)
+        {
+            throw new CustomException('Invalid token not found', 404);
+        }
+        catch (CustomException $th)
+        {
+            throw new CustomException($th->getMessage(), 401);
+        }
     }
 }

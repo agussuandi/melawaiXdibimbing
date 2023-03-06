@@ -15,11 +15,44 @@ class AuthController extends Controller
         {
             return TokenApiHelper::login($request);
         }
-        catch (Exception $e)
+        catch (\Throwable $th)
         {
             return response()->json([
                 'status'  => false,
-                'message' => $e->getMessage()
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        try
+        {
+            return TokenApiHelper::logout($request->bearerToken());
+        }
+        catch (\Throwable $th)
+        {
+            return response()->json([
+                'status'  => false,
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+
+    public function verify(Request $request)
+    {
+        try
+        {
+            return response()->json([
+                'status'  => true,
+                'message' => 'Token valid'
+            ]);
+        }
+        catch (\Throwable $th)
+        {
+            return response()->json([
+                'status'  => false,
+                'message' => $th->getMessage()
             ]);
         }
     }

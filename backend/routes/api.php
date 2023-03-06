@@ -26,11 +26,13 @@ use App\Http\Controllers\Api\CustomerReceiptController;
 // });
 
 Route::post('auth/login', [AuthController::class, 'login']);
+Route::post('auth/logout', [AuthController::class, 'logout'])->middleware('api.token');
+Route::get('auth/verify', [AuthController::class, 'verify'])->middleware('api.token');
 
 Route::middleware('api.token')->prefix('/v1')->group(function () {
     Route::resource('users', UserController::class)->except('create', 'edit');
     Route::resource('materials', MaterialController::class)->except('create', 'edit');
     Route::resource('customers', CustomerController::class)->except('create', 'edit');
     Route::resource('customer-receipts', CustomerReceiptController::class)->except('create', 'edit');
-    Route::resource('sales-order', SalesOrderController::class)->except('create', 'edit');
+    Route::resource('sales-order', SalesOrderController::class)->except('create', 'edit'); 
 }); 
