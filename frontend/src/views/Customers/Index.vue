@@ -2,6 +2,9 @@
     <v-btn color="info" style="margin-bottom: 10px;" to="/customers/create">
         Add Customer
     </v-btn>
+    <v-btn color="success" style="margin-left: 10px; margin-bottom: 10px;"  @click="handldExportXls()">
+        Export to Xls
+    </v-btn>
     <v-table>
         <thead>
             <tr>
@@ -43,8 +46,9 @@
 </template>
 
 <script lang="js">
+    import xlsx from "json-as-xlsx"
     import { sendRequest } from '../../utils/request'
-
+    
     export default {
         mounted() {
             this.handleCustomers()
@@ -78,6 +82,40 @@
                         alert(err)
                     })
                 }
+            },
+            handldExportXls() {
+                let contents = []
+                this.customers?.forEach((customer, i) => {
+                    contents.push({
+                        name: customer.customerName, 
+                        code: customer.customerCode,
+                        email: customer.customerEmail,
+                        birthdate: customer.customerBirthDate,
+                        mobile: customer.customerNoHandphone,
+                    })
+                })
+
+                const exportData = [{
+                    sheet: "Customers",
+                    columns: [
+                        { label: "Name", value: "name" },
+                        { label: "Code", value: "code" },
+                        { label: "Email", value: "email" },
+                        { label: "Birthdate", value: "birthdate" },
+                        { label: "Mobile Phone", value: "mobile" },
+                    ],
+                    content: contents
+                }]
+                
+                let settings = {
+                    fileName: "Customers CRM - Melawai", // Name of the resulting spreadsheet
+                    extraLength: 3, // A bigger number means that columns will be wider
+                    writeMode: "writeFile", // The available parameters are 'WriteFile' and 'write'. This setting is optional. Useful in such cases https://docs.sheetjs.com/docs/solutions/output#example-remote-file
+                    writeOptions: {}, // Style options from https://docs.sheetjs.com/docs/api/write-options
+                    RTL: false, // Display the columns from right-to-left (the default value is false)
+                }
+
+                xlsx(exportData, settings)
             }
         }
     }
