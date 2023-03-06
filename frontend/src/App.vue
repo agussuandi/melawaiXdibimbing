@@ -6,7 +6,9 @@
                     color="info"
                     prominent
                 >
-                    <v-toolbar-title>CRM Melawai</v-toolbar-title>
+                    <v-toolbar-title>
+                        CRM Melawai
+                    </v-toolbar-title>
                     <v-spacer></v-spacer>
                     <v-btn 
                         variant="text"
