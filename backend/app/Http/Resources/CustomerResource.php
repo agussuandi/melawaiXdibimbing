@@ -24,7 +24,7 @@ class CustomerResource extends JsonResource
             'customerEmail'       => $this->email,
             'customerCreatedAt'   => $this->created_at,
             'customerUpdatedAt'   => $this->updated_at,
-            'totalReceipts'       => sizeof($this->customerReceipts)
+            'totalReceipts'       => $this->customer_receipts_count
         ];
     }
 }
