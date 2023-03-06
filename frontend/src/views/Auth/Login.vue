@@ -1,5 +1,6 @@
 <template>
     <v-sheet width="300" class="mx-auto" style="padding-top: 10%">
+        <h3 style="text-align: center; margin-bottom: 10px;">Login CRM Melawai</h3>
         <v-form ref="form">
             <v-text-field
                 v-model="email"
@@ -12,6 +13,7 @@
                 v-model="password"
                 :rules="passwordRule"
                 label="Password"
+                type="password"
                 required
             />
             <div class="d-flex flex-column">
