@@ -95,10 +95,12 @@
             async fetchCustomer(id) {
                 sendRequest('GET', `${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customers/${id}`)
                 .then(res => {
+                    if (!res.status) throw new Error(res.message)
                     this.customer = res.data
                 })
                 .catch(err => {
-                    console.log(err)
+                    alert(err)
+                    window.location.href = '/customers'
                 })
             },
             async validate () {
