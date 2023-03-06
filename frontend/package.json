@@ -13,6 +13,7 @@
     "json-as-xlsx": "^2.5.3",
     "material-design-icons-iconfont": "^6.7.0",
     "mdi-material-ui": "^7.6.0",
+    "read-excel-file": "^5.6.1",
     "vee-validate": "^4.7.4",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6",

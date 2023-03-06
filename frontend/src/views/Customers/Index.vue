@@ -2,8 +2,11 @@
     <v-btn color="info" style="margin-bottom: 10px;" to="/customers/create">
         Add Customer
     </v-btn>
-    <v-btn color="success" style="margin-left: 10px; margin-bottom: 10px;"  @click="handldExportXls()">
+    <v-btn color="success" style="margin-left: 10px; margin-bottom: 10px;" @click="handldExportXls()">
         Export to Xls
+    </v-btn>
+    <v-btn color="primary" style="margin-left: 10px; margin-bottom: 10px;" @click="dialog = true">
+        Import Customers
     </v-btn>
     <v-table>
         <thead>
@@ -43,21 +46,57 @@
             </tr>
         </tbody>
     </v-table>
+    <v-row justify="center">
+        <v-dialog
+            v-model="dialog"
+            persistent
+            width="1024"
+        >
+            <v-card>
+                <v-card-title>
+                    <span class="text-h5">Import Customers</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-container>
+                        <v-file-input label="File Input" id="import-customer"></v-file-input>
+                        <a class="v-btn v-btn--elevated v-theme--light bg-primary v-btn--density-default v-btn--size-default v-btn--variant-elevated ml-10" href="/Template Customers.xlsx">Template Excel</a>
+                    </v-container>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="blue-darken-1"
+                        variant="text"
+                        @click="dialog = false"
+                    >
+                        Close
+                    </v-btn>
+                    <v-btn
+                        color="blue-darken-1"
+                        variant="text"
+                        @click="handleImport"
+                    >
+                        Import
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+    </v-row>
 </template>
 
 <script lang="js">
-    import xlsx from "json-as-xlsx"
+    import xlsx from 'json-as-xlsx'
+    import readXlsxFile from 'read-excel-file'
     import { sendRequest } from '../../utils/request'
     
     export default {
         mounted() {
             this.handleCustomers()
         },
-        data () {
-            return {
-                customers: []
-            }
-        },
+        data: () => ({
+            dialog: false,
+            customers: []
+        }),
         methods: {
             handleCustomers() {
                 sendRequest('GET', `${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customers`)
@@ -84,7 +123,7 @@
                 }
             },
             handldExportXls() {
-                let contents = []
+                const contents = []
                 this.customers?.forEach((customer, i) => {
                     contents.push({
                         name: customer.customerName, 
@@ -107,7 +146,7 @@
                     content: contents
                 }]
                 
-                let settings = {
+                const settings = {
                     fileName: "Customers CRM - Melawai", // Name of the resulting spreadsheet
                     extraLength: 3, // A bigger number means that columns will be wider
                     writeMode: "writeFile", // The available parameters are 'WriteFile' and 'write'. This setting is optional. Useful in such cases https://docs.sheetjs.com/docs/solutions/output#example-remote-file
@@ -116,6 +155,46 @@
                 }
 
                 xlsx(exportData, settings)
+            },
+            async handleImport() {
+                const input = document.getElementById('import-customer')
+                if (input.files.length < 1) {
+                    return alert('File is required')
+                }
+
+                await readXlsxFile(input.files[0]).then(rows => {
+                    for (let i = 0; i < rows.length; i++)
+                    {
+                        if (i === 0) {
+                            const headers = ["Name", "BirthDate", "Address", "CustomerCity", "MobilePhone", "Email"]
+                            const result = rows[0]?.filter((header, i) => header === headers[i] ? true : false )
+                            if (result.length !== 6) {
+                                alert('Template excel tidak sesuai, mohon download template excel terlebih dahulu')
+                                break
+                            }
+                            continue
+                        }
+
+                        sendRequest('POST', `${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customers`, {
+                            "customerName": rows[i][0],
+                            "customerBirthDate": rows[i][1],
+                            "customerAddress": rows[i][2],
+                            "customerCity": rows[i][3],
+                            "customerNoHandphone": rows[i][4],
+                            "customerEmail": rows[i][5]
+                        })
+                        .then(res => {
+                            console.log(res)
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                    }
+                    alert('Import customers success')
+                })
+                
+                this.handleCustomers()
+                this.dialog = false
             }
         }
     }
