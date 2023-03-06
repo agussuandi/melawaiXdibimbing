@@ -13,10 +13,12 @@
             <tr>
                 <th class="text-left">Name</th>
                 <th class="text-left">Code</th>
+                <th class="text-left">Address</th>
                 <th class="text-left">Email</th>
                 <th class="text-left">Birth Date</th>
                 <th class="text-left">Mobile Phone</th>
-                <th class="text-left">#</th>
+                <th class="text-left">Total Receipts</th>
+                <th class="text-left">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -26,9 +28,11 @@
             >
                 <td>{{ customer.customerName }}</td>
                 <td>{{ customer.customerCode }}</td>
+                <td>{{ customer.customerAddress }}</td>
                 <td>{{ customer.customerEmail }}</td>
                 <td>{{ customer.customerBirthDate }}</td>
                 <td>{{ customer.customerNoHandphone }}</td>
+                <td>{{ customer.totalReceipts }}</td>
                 <td>
                     <v-btn
                         color="warning"
@@ -36,6 +40,7 @@
                         size="small"
                         @click="$router.push(`/customers/${customer.customerId}/edit`)"
                     />
+                    &nbsp;
                     <v-btn
                         color="error"
                         icon="mdi-delete"
@@ -128,6 +133,7 @@
                     contents.push({
                         name: customer.customerName, 
                         code: customer.customerCode,
+                        address: customer.customerAddress,
                         email: customer.customerEmail,
                         birthdate: customer.customerBirthDate,
                         mobile: customer.customerNoHandphone,
@@ -139,6 +145,7 @@
                     columns: [
                         { label: "Name", value: "name" },
                         { label: "Code", value: "code" },
+                        { label: "Address", value: "address" },
                         { label: "Email", value: "email" },
                         { label: "Birthdate", value: "birthdate" },
                         { label: "Mobile Phone", value: "mobile" },

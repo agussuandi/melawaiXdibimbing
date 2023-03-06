@@ -5,7 +5,6 @@
                 <th class="text-left">Name</th>
                 <th class="text-left">Code</th>
                 <th class="text-left">Price</th>
-                <th class="text-left">#</th>
             </tr>
         </thead>
         <tbody>
@@ -16,14 +15,6 @@
                 <td>{{ material.materialName }}</td>
                 <td>{{ material.materialCode }}</td>
                 <td>{{ material.materialPrice }}</td>
-                <td>
-                    <v-btn
-                        color="warning"
-                        icon="mdi-pencil"
-                        size="small"
-                        @click="$router.push(`/materials/${material.materialId}/edit`)"
-                    />
-                </td>
             </tr>
         </tbody>
     </v-table>
