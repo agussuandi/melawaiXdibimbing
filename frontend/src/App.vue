@@ -8,7 +8,11 @@
                 >
                     <v-toolbar-title>CRM Melawai</v-toolbar-title>
                     <v-spacer></v-spacer>
-                    <v-btn variant="text" icon="mdi-logout"></v-btn>
+                    <v-btn 
+                        variant="text"
+                        icon="mdi-logout"
+                        @click="handleLogout"
+                    />
                 </v-app-bar>
                 <v-navigation-drawer
                     expand-on-hover
@@ -48,6 +52,7 @@
 
 <script>
     import Login from './views/Auth/Login.vue'
+    import { sendRequest } from './utils/request'
 
     export default {
         components: {
@@ -82,6 +87,18 @@
                     name: import.meta.env.VITE_APP_DEVELOPER,
                     email: import.meta.env.VITE_APP_DEVELOPER_EMAIL
                 }
+            }
+        },
+        methods: {
+            handleLogout() {
+                sendRequest('POST', `${import.meta.env.VITE_APP_BACKEND_HOST}/api/auth/logout`)
+                .then(res => {
+                    localStorage.removeItem('token')
+                    window.location.href = "/"
+                })
+                .catch(err => {
+                    console.log(err)
+                })
             }
         }
     }

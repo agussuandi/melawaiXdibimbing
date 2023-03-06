@@ -1,7 +1,4 @@
 <template>
-    <v-btn color="info" style="margin-bottom: 10px;" to="/materials/create">
-        Add Material
-    </v-btn>
     <v-table>
         <thead>
             <tr>

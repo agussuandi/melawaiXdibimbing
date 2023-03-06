@@ -1,3 +1,4 @@
+import { sendRequest } from '../utils/request'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -39,6 +40,17 @@ router.beforeEach((to, from) => {
     if (!token) {
         if (!from.path !== '/') return "/"
     }
+
+    sendRequest('GET', `${import.meta.env.VITE_APP_BACKEND_HOST}/api/auth/verify`)
+    .then(res => {
+        if (!res.status) {
+            localStorage.removeItem('token')
+            window.location.href = "/"
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    })
 })
 
 export default router
