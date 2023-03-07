@@ -117,14 +117,14 @@
     
     export default {
         mounted() {
-            this.handleCustomers(`${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customers`)
+            this.handleCustomers()
         },
         data: () => ({
             dialog: false,
             customers: []
         }),
         methods: {
-            handleCustomers(url) {
+            handleCustomers(url = `${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customers`) {
                 sendRequest('GET', url)
                 .then(res => {
                     this.customers = res.data
