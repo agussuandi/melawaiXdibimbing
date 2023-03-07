@@ -63,8 +63,10 @@ class SalesOrderService
     {
         try
         {
-            $salesOrder = TrxHSalesOrder::findOrFail($id);
-
+            $salesOrder = TrxHSalesOrder::withSum('salesOrderDetail', 'material_price')
+                ->withSum('salesOrderDetail', 'qty')
+            ->findOrFail($id);
+            
             return response()->json([
                 'status' => true,
                 'data'   => new SalesOrderResource($salesOrder)
