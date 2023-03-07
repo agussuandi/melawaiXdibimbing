@@ -34,5 +34,5 @@ Route::middleware('api.token')->prefix('/v1')->group(function () {
     Route::resource('materials', MaterialController::class)->except('create', 'edit');
     Route::resource('customers', CustomerController::class)->except('create', 'edit');
     Route::resource('customer-receipts', CustomerReceiptController::class)->except('create', 'edit');
-    Route::resource('sales-order', SalesOrderController::class)->except('create', 'edit'); 
+    Route::resource('sales-order', SalesOrderController::class)->only('index', 'show'); 
 }); 
