@@ -5,6 +5,8 @@
                 <th class="text-left">Invoice</th>
                 <th class="text-left">Customer</th>
                 <th class="text-left">Tanggal</th>
+                <th class="text-left">Total Material</th>
+                <th class="text-left">#</th>
             </tr>
         </thead>
         <tbody>
@@ -15,6 +17,15 @@
                 <td>{{ salesOrder.soInvoice }}</td>
                 <td>{{ salesOrder.customer.customerCode }} - {{ salesOrder.customer.customerName }}</td>
                 <td>{{ salesOrder.soDate }}</td>
+                <td>{{ salesOrder.soMaterials.length }}</td>
+                <td>
+                    <v-btn
+                        color="info"
+                        icon="mdi-eye"
+                        size="small"
+                        @click="$router.push(`/sales-order/${salesOrder.soId}`)"
+                    />
+                </td>
             </tr>
         </tbody>
     </v-table>
