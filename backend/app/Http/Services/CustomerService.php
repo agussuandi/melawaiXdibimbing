@@ -16,8 +16,9 @@ class CustomerService
     {
         try
         {
-            // $customers = MCustomer::paginate($request->get('limit', 10))->withQueryString();
-            $customers = MCustomer::withCount(['customerReceipts'])->get();
+            $customers = MCustomer::withCount(['customerReceipts'])
+                ->search($request->query('search'))
+            ->get();
 
             return CustomerResource::collection($customers);
         }

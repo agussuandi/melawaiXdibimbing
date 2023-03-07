@@ -16,11 +16,9 @@ class CustomerReceiptService
     {
         try
         {
-            // $customerReceipts = MCustomerReceipt::with('customer')
-            //     ->paginate($request->get('limit', 10))
-            // ->withQueryString();
-
-            $customerReceipts = MCustomerReceipt::with('customer')->get();
+            $customerReceipts = MCustomerReceipt::with('customer')
+                ->search($request->query('search'))
+            ->get();
 
             return CustomerReceiptResource::collection($customerReceipts);
         }

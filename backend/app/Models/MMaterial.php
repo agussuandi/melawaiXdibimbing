@@ -14,4 +14,13 @@ class MMaterial extends Model
     public $timestamps = false;
     
     protected $guarded = ['id'];
+
+    public function scopeSearch($query, $search)
+    {
+        $query->where(function($where) use($search) {
+            $where->orWhere('code', 'ilike', "%{$search}%")
+                ->orWhere('name', 'ilike', "%{$search}%")
+            ->orWhere('price', 'ilike', "%{$search}%");
+        });
+    }
 }

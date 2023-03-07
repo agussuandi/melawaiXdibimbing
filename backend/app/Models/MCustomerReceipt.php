@@ -20,4 +20,14 @@ class MCustomerReceipt extends Model
     {
         return $this->hasOne(MCustomer::class, 'id', 'customer_id');
     }
+
+    public function scopeSearch($query, $search)
+    {
+        $query->where(function($where) use($search) {
+            $where->orWhere('code', 'ilike', "%{$search}%")
+                ->orWhere('name', 'ilike', "%{$search}%")
+                ->orWhereRelation('customer', 'code', 'ilike', "%{$search}%")
+            ->orWhereRelation('customer', 'name', 'ilike', "%{$search}%");
+        });
+    }
 }

@@ -17,9 +17,9 @@ class MaterialService
     {
         try
         {
-            // $users = MMaterial::paginate($request->get('limit', 10))->withQueryString();
-
-            $materials = MMaterial::all();
+            $materials = MMaterial::query()
+                ->search($request->query('search'))
+            ->get();
 
             return MaterialResource::collection($materials);
         }
