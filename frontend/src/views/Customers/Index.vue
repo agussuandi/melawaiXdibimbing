@@ -1,18 +1,38 @@
 <template>
-    <v-btn color="info" style="margin-bottom: 10px;" to="/customers/create">
-        Add Customer
-    </v-btn>
-    <v-btn color="success" style="margin-left: 10px; margin-bottom: 10px;" @click="handldExportXls()">
-        Export to Xls
-    </v-btn>
-    <v-btn color="primary" style="margin-left: 10px; margin-bottom: 10px;" @click="dialog = true">
-        Import Customers
-    </v-btn>
+    <div class="d-flex justify-space-between flex-wrap">
+        <div>
+            <v-btn color="info" style="margin-bottom: 10px;" to="/customers/create">
+                Add Customer
+            </v-btn>
+            <v-btn color="success" style="margin-left: 10px; margin-bottom: 10px;" @click="handldExportXls()">
+                Export to Xls
+            </v-btn>
+            <v-btn color="primary" style="margin-left: 10px; margin-bottom: 10px;" @click="dialog = true">
+                Import Customers
+            </v-btn>
+        </div>
+        <v-card
+            color="grey-lighten-3"
+        >
+            <v-card-text style="width: 400px;">
+                <v-text-field
+                    density="compact"
+                    variant="solo"
+                    label="Search customers"
+                    append-inner-icon="mdi-magnify"
+                    single-line
+                    hide-details
+                    v-on:keyup="handleSearch"
+                ></v-text-field>
+            </v-card-text>
+        </v-card>
+    </div>
     <v-table>
         <thead>
             <tr>
                 <th class="text-left">Name</th>
                 <th class="text-left">Code</th>
+                <th class="text-left">City</th>
                 <th class="text-left">Address</th>
                 <th class="text-left">Email</th>
                 <th class="text-left">Birth Date</th>
@@ -23,11 +43,12 @@
         </thead>
         <tbody>
             <tr
-                v-for="customer in customers"
-                :key="customer.customerCode"
+                v-for="(customer, index) in customers"
+                :key="index"
             >
                 <td>{{ customer.customerName }}</td>
                 <td>{{ customer.customerCode }}</td>
+                <td>{{ customer.customerCity }}</td>
                 <td>{{ customer.customerAddress }}</td>
                 <td>{{ customer.customerEmail }}</td>
                 <td>{{ customer.customerBirthDate }}</td>
@@ -96,15 +117,15 @@
     
     export default {
         mounted() {
-            this.handleCustomers()
+            this.handleCustomers(`${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customers`)
         },
         data: () => ({
             dialog: false,
             customers: []
         }),
         methods: {
-            handleCustomers() {
-                sendRequest('GET', `${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customers`)
+            handleCustomers(url) {
+                sendRequest('GET', url)
                 .then(res => {
                     this.customers = res.data
                 })
@@ -202,6 +223,11 @@
                 
                 this.handleCustomers()
                 this.dialog = false
+            },
+            handleSearch(e) {
+                if (e.keyCode === 13) {
+                    this.handleCustomers(`${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customers?search=${e.target.value}`)
+                } 
             }
         }
     }

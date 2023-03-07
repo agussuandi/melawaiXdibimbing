@@ -1,11 +1,29 @@
 <template>
+    <div class="d-flex justify-end flex-wrap">
+        <v-card
+            color="grey-lighten-3"
+        >
+            <v-card-text style="width: 400px;">
+                <v-text-field
+                    density="compact"
+                    variant="solo"
+                    label="Search sales order"
+                    append-inner-icon="mdi-magnify"
+                    single-line
+                    hide-details
+                    v-on:keyup="handleSearch"
+                ></v-text-field>
+            </v-card-text>
+        </v-card>
+    </div>
     <v-table>
         <thead>
             <tr>
                 <th class="text-left">Invoice</th>
                 <th class="text-left">Customer</th>
                 <th class="text-left">Tanggal</th>
-                <th class="text-left">Total Material</th>
+                <th class="text-left">Total Qty</th>
+                <th class="text-left">Total Price</th>
                 <th class="text-left">#</th>
             </tr>
         </thead>
@@ -17,7 +35,8 @@
                 <td>{{ salesOrder.soInvoice }}</td>
                 <td>{{ salesOrder.customer.customerCode }} - {{ salesOrder.customer.customerName }}</td>
                 <td>{{ salesOrder.soDate }}</td>
-                <td>{{ salesOrder.soMaterials.length }}</td>
+                <td>{{ salesOrder.soTotalQty }}</td>
+                <td>{{ this.handleFormatCurrency(salesOrder.soTotalPrice) }}</td>
                 <td>
                     <v-btn
                         color="info"
@@ -36,7 +55,7 @@
 
     export default {
         mounted() {
-            this.handleSalesOrder()
+            this.handleSalesOrder(`${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/sales-order`)
         },
         data () {
             return {
@@ -44,14 +63,22 @@
             }
         },
         methods: {
-            handleSalesOrder() {
-                sendRequest('GET', `${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/sales-order`)
+            handleSalesOrder(url) {
+                sendRequest('GET', url)
                 .then(res => {
                     this.salesOrders = res.data
                 })
                 .catch(err => {
                     console.log(err)
                 })
+            },
+            handleFormatCurrency(currency) {
+                return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'IDR' }).format(currency)
+            },
+            handleSearch(e) {
+                if (e.keyCode === 13) {
+                    this.handleSalesOrder(`${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/sales-order?search=${e.target.value}`)
+                }
             }
         }
     }

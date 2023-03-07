@@ -1,4 +1,21 @@
 <template>
+    <div class="d-flex justify-end flex-wrap">
+        <v-card
+            color="grey-lighten-3"
+        >
+            <v-card-text style="width: 400px;">
+                <v-text-field
+                    density="compact"
+                    variant="solo"
+                    label="Search customer receipts"
+                    append-inner-icon="mdi-magnify"
+                    single-line
+                    hide-details
+                    v-on:keyup="handleSearch"
+                ></v-text-field>
+            </v-card-text>
+        </v-card>
+    </div>
     <v-table>
         <thead>
             <tr style="white-space: nowrap;">
@@ -13,8 +30,8 @@
         </thead>
         <tbody>
             <tr
-                v-for="customer in customers"
-                :key="customer.customerCode"
+                v-for="(customer, index) in customers"
+                :key="index"
                 style="white-space: nowrap;"
             >
                 <td>{{ customer.customerReceiptName }}</td>
@@ -50,7 +67,7 @@
 
     export default {
         mounted() {
-            this.handleCustomerReceipts()
+            this.handleCustomerReceipts(`${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customer-receipts`)
         },
         data () {
             return {
@@ -58,14 +75,19 @@
             }
         },
         methods: {
-            handleCustomerReceipts() {
-                sendRequest('GET', `${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customer-receipts`)
+            handleCustomerReceipts(url) {
+                sendRequest('GET', url)
                 .then(res => {
                     this.customers = res.data
                 })
                 .catch(err => {
                     console.log(err)
                 })
+            },
+            handleSearch(e) {
+                if (e.keyCode === 13) {
+                    this.handleCustomerReceipts(`${import.meta.env.VITE_APP_BACKEND_HOST}/api/v1/customer-receipts?search=${e.target.value}`)
+                }
             }
         }
     }
